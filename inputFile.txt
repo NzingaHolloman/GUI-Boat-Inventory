@@ -1,0 +1,13 @@
+Galuga Bay
+B,30.0,13.0,FAJ3190A,3,Canoe,Two Handed
+M,20.0,2.0,MIP191,2,Yacht,1,1
+Rudder
+3
+Iron
+Honda,3,300.0
+S,53.0,43.0,AJ831FA,8,VRAM,15.0,4.0,Green,1,1
+Rudder
+5
+Plastic
+Honda,4,600.0
+S,32.0,64.0,AJFANC91,10,VRAM,10.0,6.0,Green,1,0
