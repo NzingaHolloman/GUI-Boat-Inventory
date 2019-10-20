@@ -37,7 +37,7 @@ public abstract class Boat {
         this.type = type;  
     }
     public String toString(){
-        return power+", "+length+", "+breadth+", "+serial+", "+seats+", "+type;
+        return power+","+length+","+breadth+","+serial+","+seats+","+type;
     }
     
     /**

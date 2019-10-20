@@ -36,10 +36,16 @@ public class Sailboat extends Boat{
     @Override
     public String toString(){
         String print;
+        String k = "0";
+        if(keef == true)
+            k = "1";
+        String hm = "0";
+        if(hasMotor ==true)
+            hm ="1";
         if (getMotor()==null){
-            print= getMastHeight()+", "+getBoomLength()+", "+getSailColor()+", "+isKeef()+", "+isHasMotor();
+            print= getMastHeight()+","+getBoomLength()+","+getSailColor()+","+k+","+hm;
         }
-        else print= getMastHeight()+", "+getBoomLength()+", "+getSailColor()+", "+isKeef()+", "+isHasMotor()+", "+getMotor();
+        else print= getMastHeight()+","+getBoomLength()+","+getSailColor()+","+k+","+hm+getMotor();
         return super.toString()+","+print;
     }
 

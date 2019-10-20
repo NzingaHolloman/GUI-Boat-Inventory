@@ -24,7 +24,13 @@ public class MotorBoat extends Boat {
     }
     @Override
     public String toString(){
-        return super.toString()+", "+isSwimPlatform()+","+isHardTop()+","+motor;
+        String sp = "0";
+        if(swimPlatform==true)
+            sp = "1";
+        String ht = "0";
+        if(hardTop == true)
+            ht = "1";
+        return super.toString()+","+sp+","+ht+motor;
     }
 
     /**

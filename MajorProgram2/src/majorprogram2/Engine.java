@@ -15,7 +15,9 @@ public class Engine{
     private double horsePower;
     
     public Engine(){
-        
+        brand = null;
+        cylinders = 0;
+        horsePower = 0;
     }
     public Engine(String b, int c,double hp){
         brand = b;
@@ -24,7 +26,12 @@ public class Engine{
     }
     @Override
     public String toString(){
-        return getBrand()+","+getCylinders()+","+getHorsePower();
+        String r = getBrand()+","+getCylinders()+","+getHorsePower();
+        if (brand.equals(null))
+            r = null;
+        if (!brand.equals(null))
+            r = getBrand()+","+getCylinders()+","+getHorsePower();
+        return r;//getBrand()+","+getCylinders()+","+getHorsePower();
     }
 
     /**

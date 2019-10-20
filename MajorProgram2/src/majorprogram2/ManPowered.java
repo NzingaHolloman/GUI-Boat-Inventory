@@ -20,7 +20,7 @@ public class ManPowered extends Boat {
     }
     @Override
     public String toString(){
-        return super.toString()+", "+typeOfPaddle;
+        return super.toString()+","+typeOfPaddle;
     }
 
     /**

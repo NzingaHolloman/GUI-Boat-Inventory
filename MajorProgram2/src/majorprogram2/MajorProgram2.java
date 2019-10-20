@@ -5,7 +5,9 @@
  */
 package majorprogram2;
 
-import javax.swing.JOptionPane;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -16,39 +18,40 @@ public class MajorProgram2 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here\
+        Dock testD2 = new Dock();
+        String FN;
+        FN = "inputFile.txt";
+        File file = new File(FN);
+        if(!file.exists()){
+            JFileChooser j = new JFileChooser("C:"); 
+            j.showSaveDialog(null); 
+            FN=j.getSelectedFile().getName();
+        }
+               
+        testD2.readBoatData(FN);
         
-        //Testing man powered boat
-        ManPowered testMP = new ManPowered("Two Handed");
-        testMP.setData("B", 30.0, 13.0, "FAJ3190A", 3, "Canoe");
-        //System.out.println(testMP.toString()+"\n");
+        ManPowered test1 = new ManPowered("four Handed");
+        test1.setData("B", 44.0, 14.0, "ABC123", 4, "biger boat");
+        testD2.addBoat(test1);
         
         //Testing MotorBoat
-        Engine MBE = new Engine("Honda",3,300.0);
-        Motor MBM = new Motor("Rudder",3,"Iron",MBE);
-        MotorBoat testMB = new MotorBoat(true,true,MBM);
-        testMB.setData("M", 20.0,2.0,"MIP191",2,"Yacht");
-        //System.out.println(testMB.toString()+"\n");
+        Engine test2E;
+        test2E= new Engine("KIA",2,200.0);
+        Motor test2M = new Motor("MotorTest",2,"Foam",test2E);
+        MotorBoat test2 = new MotorBoat(false,true,test2M);
+        test2.setData("M", 20.0,2.0,"MIP191",2,"Yacht");
+        testD2.addBoat(test2);
         
         //Testing SailBoat
-        Engine SE = new Engine("Honda",4,600.0);
-        Motor SM = new Motor("Rudder",5,"Plastic",SE);
-        Sailboat testS = new Sailboat(15.0,4.0,"Green",true, true,SM);
-        testS.setData("S",53.0,43.0,"AJ831FA",8,"VRAM");
-        //System.out.println(testS.toString());
+        Engine test3E = new Engine("Honda",10,900.0);
+        Motor test3M = new Motor("yank",8,"Foam",test3E);
+        Sailboat test3 = new Sailboat(15.0,5.0,"Yellow",true, true,test3M);
+        test3.setData("S",53.0,43.0,"NKH020",8,"OkayThen");
+        testD2.addBoat(test3);
         
-        //adding concrete class to the ArrayList in Dock
-        Dock testD = new Dock();
-        testD.addBoat(testMP);  //adding ManPoweredBoat
-        testD.addBoat(testMB);  //adding MotorBoat
-        testD.addBoat(testS);   //adding Sailboat
+        testD2.saveBoatData(FN);
         
-        String print = "";
-        for(int index =0;index<testD.getNumBoat(); index++){
-            print +=testD.getBoat(index).toString()+"\n";
-        }
-        JOptionPane.showMessageDialog(null, print);
-        System.exit(0);
     }
 }

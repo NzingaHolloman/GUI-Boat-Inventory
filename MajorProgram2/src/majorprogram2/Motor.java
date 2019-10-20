@@ -16,7 +16,10 @@ public class Motor{
     private Engine engine;
     
     public Motor(){
-        
+        steering =null;
+        propellers = 0;
+        material = null;
+        engine = null;
     }
     public Motor(String steer, int pro, String mat, Engine eng){
         steering =steer;
@@ -26,7 +29,12 @@ public class Motor{
     }
     @Override
     public String toString(){
-        return "\n"+getSteering()+System.lineSeparator()+getPropellers()+System.lineSeparator()+getMaterial()+System.lineSeparator()+getEngine();
+        String r;
+        if (propellers==0)
+            r = "";
+        else 
+            r = "\n"+getSteering()+System.lineSeparator()+getPropellers()+System.lineSeparator()+getMaterial()+System.lineSeparator()+getEngine();
+        return r;
     }
 
     /**
