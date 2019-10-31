@@ -40,7 +40,7 @@ public class Dock {
                         ManPowered MP = new ManPowered(parts[6]);
                         MP.setData("B", Double.parseDouble(parts[1]), Double.parseDouble(parts[2]), parts[3],Integer.parseInt(parts[4]), parts[5]);
                         addBoat(MP);
-                        System.out.println(MP.toString());
+                        //System.out.println(MP.toString());
                         break;
                     case 'M':
                         parts = line.split(",");
@@ -64,7 +64,7 @@ public class Dock {
                         MotorBoat MB = new MotorBoat(swimPlatform,hardTop,MBM);
                         MB.setData("M", Double.parseDouble(parts[1]), Double.parseDouble(parts[2]), parts[3],Integer.parseInt(parts[4]), parts[5]);
                         addBoat(MB);
-                        System.out.println(MB.toString());
+                        //System.out.println(MB.toString());
                         break; 
                     case 'S':
                         parts = line.split(",");
@@ -89,7 +89,7 @@ public class Dock {
                         //Motor SM = new Motor("why no work",5,"Plastic",SE);
                         Sailboat S = new Sailboat(Double.parseDouble(parts[6]),Double.parseDouble(parts[7]),parts[8],keel, hasMotor,SM);
                         S.setData("S",Double.parseDouble(parts[1]), Double.parseDouble(parts[2]), parts[3],Integer.parseInt(parts[4]), parts[5]);
-                        System.out.println(S.toString());
+                        //System.out.println(S.toString());
                         addBoat(S);
                         break;
                     default:

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -49,6 +50,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javax.swing.JOptionPane;
 
 
 
@@ -150,30 +153,34 @@ public class MajorProgram2 extends Application {
             gridPane.setVgap(15);
   
             
-            load.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                JFileChooser j = new JFileChooser("C:"); 
+            load.setOnAction((ActionEvent event) -> {
+                JFileChooser j = new JFileChooser("C:");
                 j.showSaveDialog(null); 
                 File=j.getSelectedFile().getName();
-                
                 testing.readBoatData(File);
                 FN = testing.getDockName();
-                
                 seasonList = FXCollections.<String>observableArrayList();
                 testing.getBoats().forEach((printBoats) -> {
                     seasonList.add(printBoats.toString());
                     //seasonList = FXCollections.<String>observableArrayList();
                 });
-                ListView<String> boats = new ListView<>(seasonList);
+                ListView<String> boats1 = new ListView<>(seasonList);
                 //listView.prefHeightProperty().bind(Bindings.size(itemListProperty).multiply(LIST_CELL_HEIGHT));
-                boats.setPrefSize(300, 1500);
-                vbox.getChildren().addAll(boats);
+                boats1.setPrefSize(300, 1500);
+                vbox.getChildren().addAll(boats1);
                 label = new Label(FN);
                 gridPane.add(label,0,0);
-                gridPane2.add(boats, 0, 0, 300, 150);
+                gridPane2.add(boats1, 0, 0, 300, 150);
                 bPane.setCenter(gridPane2);
-            }});
+                
+                boats1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        JOptionPane.showMessageDialog(null, new JTextArea(viewJOption(boats1.getSelectionModel().getSelectedItem())));
+                    }
+                });
+            });
+            
             
             
             label = new Label(FN);
@@ -227,6 +234,12 @@ public class MajorProgram2 extends Application {
                 gridPane2.add(boats1, 0, 0, 300, 150);
                 
                 bPane.setCenter(gridPane2);
+                boats1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        JOptionPane.showMessageDialog(null, new JTextArea(viewJOption(boats1.getSelectionModel().getSelectedItem())));
+                    }
+                });
             });
             
             SB.setOnAction((ActionEvent event3) -> {
@@ -261,6 +274,12 @@ public class MajorProgram2 extends Application {
                 engineInfo.setText("");
                 bPane.setRight(null);
                 bPane.setCenter(gridPane2);
+                boats1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        JOptionPane.showMessageDialog(null, new JTextArea(viewJOption(boats1.getSelectionModel().getSelectedItem())));
+                    }
+                });
             });
             
             gridPane5.add(enterMB, 2, 6);
@@ -298,7 +317,14 @@ public class MajorProgram2 extends Application {
                 engineInfo.setText("");
                 bPane.setRight(null);
                 bPane.setCenter(gridPane2);
+                boats1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        JOptionPane.showMessageDialog(null, new JTextArea(viewJOption(boats1.getSelectionModel().getSelectedItem())));
+                    }
+                });
             });
+            
             bPane.setLeft(gridPane);
             bPane.setBottom(hbox);
             // create a scene 
@@ -314,6 +340,52 @@ public class MajorProgram2 extends Application {
   
             System.out.println(e.getMessage()); 
         } 
+    }
+    private String viewJOption(String s){
+        Scanner scan = new Scanner(s);
+        String whatPrints="";
+        String[] parts;
+        String[] splitLine;
+        String[] parts2;
+        switch(s.charAt(0)){
+            case 'B':
+                //whatPrints+= s;
+                parts = s.split(",");
+                //whatPrints += parts[6];
+                ManPowered MP = new ManPowered(parts[6]);
+                MP.setData("B", Double.parseDouble(parts[1]), Double.parseDouble(parts[2]), parts[3],Integer.parseInt(parts[4]), parts[5]);
+                whatPrints+="boatPower:\tB\nlength:\t"+MP.getLength()+"\nBreadth:\t"+MP.getSerial()+"\nSeats:\t"+MP.getSeats()+"\nType:\t"+MP.getType()+"\ntype of Paddle:\t"+MP.getTypeOfPaddle();
+                
+                break;
+            case 'M':
+                //parts = s.split(",");
+                splitLine = s.split("\\n");
+                parts = splitLine[0].split(",");
+                parts2 = splitLine[4].split(",");
+                
+                whatPrints+="boatPower:\t"+parts[0]+"B\nlength:\t"+parts[1]+"\nBreadth:\t"+parts[2]+"\nSeats:\t"+parts[3]+"\nType:\t"+parts[4]+"\nSwimPlatform:\t"+parts[5]+"\nhardTop:\t"+parts[6];
+                whatPrints+="\nSteering:\t"+splitLine[1]+"\nPropellers:\t"+splitLine[2]+"\nMaterial:\t"+splitLine[3];
+                whatPrints+="\nBrand:\t"+parts2[0]+"\nCylinders:\t"+parts2[1]+"\nHoursePower:\t"+parts2[2];
+                break; 
+            case 'S':
+                splitLine = s.split("\\n");
+                parts = splitLine[0].split(",");
+                whatPrints+="BoatPower:\t"+parts[0]+"B\nLength:\t"+parts[1]+"\nBreadth:\t"+parts[2]+"\nSerial:\t"+parts[3]+"\nSeats:\t"+parts[4]+"\nType:\t"+parts[5]+"\nMastHeight:\t"+parts[6]+"\nBoomLength:\t"+parts[7]+"\nSailColor:\t"+parts[8];
+                boolean keel = false;
+                boolean hasMotor = false;
+                Motor SM = new Motor();
+                whatPrints+="\nkeelCheck:\t"+parts[9]+"\nmotorCheck:\t"+parts[10];
+                if (parts[10].equals("1")){
+                    hasMotor = true;                    
+                    parts2 = splitLine[4].split(",");
+                    
+                    whatPrints+="\nSteering:\t"+splitLine[1]+"\nPropellers:\t"+splitLine[2]+"\nMaterial:\t"+splitLine[3];
+                    whatPrints+="\nBrand:\t"+parts2[0]+"\nCylinders:\t"+parts2[1]+"\nHoursePower:\t"+parts2[2];
+                }                
+            break;
+            default:
+        }            ;
+        return whatPrints;
     }
     public static void main(String[] args) throws IOException {
         // TODO code application logic here\
